@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
-const TableBlock: React.FC = () => {
-  return (
-    <div>
-      I am table block
-    </div>
-  );
+interface TableBlockProps {
+	value: any;
+	changeState(): any; 
+}
+
+const TableBlock: FunctionComponent<TableBlockProps> = ({ value, changeState}) => {
+	return (
+	    <button onClick={changeState}>
+	        {value}
+	    </button>
+	);
 }
 
 export default TableBlock;
