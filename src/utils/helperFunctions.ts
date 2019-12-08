@@ -1,4 +1,7 @@
+// checks to see if the game is won
 export const findWinner = (winner: any) => winner;
+
+// checks to see if the boxes are clicked
 export const allBoxesClicked = (boxes: any) => boxes;
 
 // splits up array for forming table body
