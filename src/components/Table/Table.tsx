@@ -35,14 +35,11 @@ class Table extends Component<{}, TableState>  {
 
 
 	handleBoxClick(index: any) {
-		console.log('index', index);
 	    // get current state of boxes
 	    const boxes = this.state.boxes.slice();
-	    console.log('boxes', boxes)
 
 	    // Get current state of history
 	    let history = this.state.history;
-	    console.log('history', history)
 
 	    // Stop the game if board contains winning combination
 	    if (findWinner(boxes) || boxes[index]) {

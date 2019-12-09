@@ -24,7 +24,7 @@ export const findWinner = (boxes: any) => {
 	}
 
 	// Otherwise do nothing
-	return null
+	return null;
 };
 
 // checks to see if the boxes are clicked
