@@ -2,15 +2,27 @@ import React, { Component } from 'react';
 
 // components
 import TableBlock from '../TableBlock/TableBlock';
+import {
+	TableWrapper,
+	GameBoard,
+	GameStatusWrapper,
+	GameStatus,
+	ResetButton,
+} from './TableStyles';
+
+import {
+	StyledO,
+	StyledX,
+} from '../../utils/constants';
 
 // utils
 import {
 	findWinner,
 	allBoxesClicked,
-	chunkyArray,
 } from '../../utils/helperFunctions';
 
 import { initialBoardState } from '../../utils/constants';
+
 
 interface TableState {
 	boxes: any[];
@@ -52,10 +64,10 @@ class Table extends Component<{}, TableState>  {
 	    }
 
 	    // Mark the box either as 'x' or 'o'
-	    boxes[index] = this.state.xPlayer ? 'x' : 'o'
+	    boxes[index] = this.state.xPlayer ? 'X' : 'O'
 
 	    // Add move to game history
-	    history.push(this.state.xPlayer ? 'x' : 'o')
+	    history.push(this.state.xPlayer ? 'X' : 'O')
 
 		// Update component state with new data
 		this.setState({
@@ -66,21 +78,24 @@ class Table extends Component<{}, TableState>  {
 	}
 
 	gameStatus() {
-		// Get winner (if there is any)
-		const winner = findWinner(this.state.boxes)
-
-		// Are all boxes checked?
-		const isFilled = allBoxesClicked(this.state.boxes)
-
+		const winner = findWinner(this.state.boxes);
+		
 	    if (winner) {
-	        // If winner exists, create status message
-	        return `The winner is: ${winner}!`
-	    } else if(!winner && isFilled) {
-	        // If game is drawn, create status message
-	        return 'Game drawn!'
+	        return (
+	        	<GameStatus>{`The winner is: ${winner}!`}</GameStatus>
+	        )
+	    } else if(!winner && allBoxesClicked(this.state.boxes)) {
+	        return (
+	        	<GameStatus>{'Game drawn!'}</GameStatus>
+	        )
 	    } else {
-	        // If there is no winner and game is not drawn, ask the next player to make a move
-	        return `It is ${(this.state.xPlayer ? 'x' : 'o')}'s turn.`
+	        return (
+	        	<GameStatus>
+	        	{this.state.xPlayer ? 
+        			<span><StyledX>X</StyledX>, you're up!</span> : 
+        			<span><StyledO>O</StyledO>, you're up!</span>}
+	        	</GameStatus>
+	        ) 
 	    }
 	}
 
@@ -94,54 +109,52 @@ class Table extends Component<{}, TableState>  {
 
 	render() {
 		return (
-		    <div>
-		    	<div className="board">
-		    	    <div className="board-row">
-		    	       <TableBlock 
-		    	          changeState={() => this.handleBoxClick(0)} 
-		    	          value={this.state.boxes[0]}
-		    	        />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(1)} 
-		    	           value={this.state.boxes[1]}
-		    	         />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(2)} 
-		    	           value={this.state.boxes[2]}
-		    	         />   
-		    	    </div>
-		    	    <div className="board-row">
-		    	       <TableBlock 
-		    	          changeState={() => this.handleBoxClick(3)} 
-		    	          value={this.state.boxes[3]}
-		    	        />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(4)} 
-		    	           value={this.state.boxes[4]}
-		    	         />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(5)} 
-		    	           value={this.state.boxes[5]}
-		    	         />
-		    	    </div>
-
-		    	    <div className="board-row">
-		    	       <TableBlock 
-		    	          changeState={() => this.handleBoxClick(6)} 
-		    	          value={this.state.boxes[6]}
-		    	        />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(7)} 
-		    	           value={this.state.boxes[7]}
-		    	         />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(8)} 
-		    	           value={this.state.boxes[8]}
-		    	         />
-		    	    </div>
-		    	</div>
-		 		{this.gameStatus()}
-		    </div>
+		    <TableWrapper>
+		    	<GameBoard id='GameBoard'>
+	    	       <TableBlock 
+	    	          changeState={() => this.handleBoxClick(0)} 
+	    	          value={this.state.boxes[0]}
+	    	        />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(1)} 
+	    	           value={this.state.boxes[1]}
+	    	         />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(2)} 
+	    	           value={this.state.boxes[2]}
+	    	         />   
+	    	       <TableBlock 
+	    	          changeState={() => this.handleBoxClick(3)} 
+	    	          value={this.state.boxes[3]}
+	    	        />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(4)} 
+	    	           value={this.state.boxes[4]}
+	    	         />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(5)} 
+	    	           value={this.state.boxes[5]}
+	    	         />
+	    	       <TableBlock 
+	    	          changeState={() => this.handleBoxClick(6)} 
+	    	          value={this.state.boxes[6]}
+	    	        />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(7)} 
+	    	           value={this.state.boxes[7]}
+	    	         />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(8)} 
+	    	           value={this.state.boxes[8]}
+	    	         />
+		    	</GameBoard>
+		    	<GameStatusWrapper>
+		 			{this.gameStatus()}
+		 		</GameStatusWrapper>
+		 		<ResetButton onClick={() => this.restartGame()}>
+		 			Restart
+		 		</ResetButton>
+		    </TableWrapper>
 		)
 	}
 }
