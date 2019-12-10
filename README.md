@@ -8,7 +8,7 @@ This game of tic tac toe allows two players to play a game of tic tac toe by cli
 
 This version uses local state rather than getting fancy with hooks or using redux.  It was the right tool for the job in this case, but it could easily be expanded to make use of these tools.
 
-Next steps include writing tests, perhaps converting over to redux and expanding on the current functionality (Scoreboards?  Won games?  The world is my oyster!)
+Next steps include writing tests, perhaps converting over to redux and expanding on the current functionality (Scoreboards?  Won games?  The world is my oyster!).  Launching it into the wild would follow this.
 
 ## How I did it
 
