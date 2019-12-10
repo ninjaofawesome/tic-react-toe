@@ -52,6 +52,8 @@ class Table extends Component<{}, TableState>  {
 				<TableBlock 
 				   changeState={() => this.handleBoxClick(index)} 
 				   value={this.state.boxes[index]}
+				   key={`box-${index}`}
+				   id={`tableBlock-${index}`}
 				 />
 			))
 		)

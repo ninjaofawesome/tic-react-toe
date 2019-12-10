@@ -13,11 +13,12 @@ import {
 
 interface TableBlockProps {
 	value: any;
-	changeState(): any; 
+	changeState(): any;
+	id: string; 
 }
 
-const TableBlock: FunctionComponent<TableBlockProps> = ({ value, changeState}) => (
-    <StyledTableBlock onClick={changeState}>{value === null ? <BlockPlaceholder /> : value === 'X' ? <StyledX>{value}</StyledX> : <StyledO>{value}</StyledO>}</StyledTableBlock>
+const TableBlock: FunctionComponent<TableBlockProps> = ({ value, changeState, id}) => (
+    <StyledTableBlock onClick={changeState} id={id}>{value === null ? <BlockPlaceholder /> : value === 'X' ? <StyledX>{value}</StyledX> : <StyledO>{value}</StyledO>}</StyledTableBlock>
 );
 
 export default TableBlock;
