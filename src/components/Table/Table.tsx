@@ -40,11 +40,24 @@ class Table extends Component<{}, TableState>  {
 			xPlayer: true,
 		};
 
+		this.setBoard = this.setBoard.bind(this);
 		this.handleBoxClick = this.handleBoxClick.bind(this);
 		this.gameStatus = this.gameStatus.bind(this);
 		this.restartGame = this.restartGame.bind(this);
 	}
 
+	setBoard() {
+		return (
+			this.state.boxes.map((box, index) => (
+				<TableBlock 
+				   changeState={() => this.handleBoxClick(index)} 
+				   value={this.state.boxes[index]}
+				   key={`box-${index}`}
+				   id={`tableBlock-${index}`}
+				 />
+			))
+		)
+	}
 
 	handleBoxClick(index: any) {
 	    // get current state of boxes
@@ -111,42 +124,7 @@ class Table extends Component<{}, TableState>  {
 		return (
 		    <TableWrapper>
 		    	<GameBoard id='GameBoard'>
-	    	       <TableBlock 
-	    	          changeState={() => this.handleBoxClick(0)} 
-	    	          value={this.state.boxes[0]}
-	    	        />
-	    	        <TableBlock 
-	    	           changeState={() => this.handleBoxClick(1)} 
-	    	           value={this.state.boxes[1]}
-	    	         />
-	    	        <TableBlock 
-	    	           changeState={() => this.handleBoxClick(2)} 
-	    	           value={this.state.boxes[2]}
-	    	         />   
-	    	       <TableBlock 
-	    	          changeState={() => this.handleBoxClick(3)} 
-	    	          value={this.state.boxes[3]}
-	    	        />
-	    	        <TableBlock 
-	    	           changeState={() => this.handleBoxClick(4)} 
-	    	           value={this.state.boxes[4]}
-	    	         />
-	    	        <TableBlock 
-	    	           changeState={() => this.handleBoxClick(5)} 
-	    	           value={this.state.boxes[5]}
-	    	         />
-	    	       <TableBlock 
-	    	          changeState={() => this.handleBoxClick(6)} 
-	    	          value={this.state.boxes[6]}
-	    	        />
-	    	        <TableBlock 
-	    	           changeState={() => this.handleBoxClick(7)} 
-	    	           value={this.state.boxes[7]}
-	    	         />
-	    	        <TableBlock 
-	    	           changeState={() => this.handleBoxClick(8)} 
-	    	           value={this.state.boxes[8]}
-	    	         />
+	    	      	{this.setBoard()}
 		    	</GameBoard>
 		    	<GameStatusWrapper>
 		 			{this.gameStatus()}
