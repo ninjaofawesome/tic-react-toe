@@ -44,14 +44,3 @@ export const allBoxesClicked = (boxes: any) => {
 	// Check if all boxes are clicked (filled)
 	return count === 9 ? true : false;
 };
-
-// splits up array for forming table body
-export const chunkyArray = (array: any[], size: number) => {
-	const chunked_arr = [];
-	let copied = [...array];
-	const subArrNum = Math.ceil(copied.length / size); 
-	for (let i = 0; i < subArrNum; i++) {
-	   chunked_arr.push(copied.splice(0, size));
-	}
-	return chunked_arr;
-};
