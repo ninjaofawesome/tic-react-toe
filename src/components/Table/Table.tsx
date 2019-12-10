@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 
 // components
 import TableBlock from '../TableBlock/TableBlock';
+import {
+	TableWrapper,
+	GameBoard,
+} from './TableStyles';
 
 // utils
 import {
 	findWinner,
 	allBoxesClicked,
-	chunkyArray,
 } from '../../utils/helperFunctions';
 
 import { initialBoardState } from '../../utils/constants';
+
 
 interface TableState {
 	boxes: any[];
@@ -94,54 +98,50 @@ class Table extends Component<{}, TableState>  {
 
 	render() {
 		return (
-		    <div>
-		    	<div className="board">
-		    	    <div className="board-row">
-		    	       <TableBlock 
-		    	          changeState={() => this.handleBoxClick(0)} 
-		    	          value={this.state.boxes[0]}
-		    	        />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(1)} 
-		    	           value={this.state.boxes[1]}
-		    	         />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(2)} 
-		    	           value={this.state.boxes[2]}
-		    	         />   
-		    	    </div>
-		    	    <div className="board-row">
-		    	       <TableBlock 
-		    	          changeState={() => this.handleBoxClick(3)} 
-		    	          value={this.state.boxes[3]}
-		    	        />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(4)} 
-		    	           value={this.state.boxes[4]}
-		    	         />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(5)} 
-		    	           value={this.state.boxes[5]}
-		    	         />
-		    	    </div>
-
-		    	    <div className="board-row">
-		    	       <TableBlock 
-		    	          changeState={() => this.handleBoxClick(6)} 
-		    	          value={this.state.boxes[6]}
-		    	        />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(7)} 
-		    	           value={this.state.boxes[7]}
-		    	         />
-		    	        <TableBlock 
-		    	           changeState={() => this.handleBoxClick(8)} 
-		    	           value={this.state.boxes[8]}
-		    	         />
-		    	    </div>
-		    	</div>
+		    <TableWrapper>
+		    	<GameBoard id='GameBoard'>
+	    	       <TableBlock 
+	    	          changeState={() => this.handleBoxClick(0)} 
+	    	          value={this.state.boxes[0]}
+	    	        />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(1)} 
+	    	           value={this.state.boxes[1]}
+	    	         />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(2)} 
+	    	           value={this.state.boxes[2]}
+	    	         />   
+	    	       <TableBlock 
+	    	          changeState={() => this.handleBoxClick(3)} 
+	    	          value={this.state.boxes[3]}
+	    	        />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(4)} 
+	    	           value={this.state.boxes[4]}
+	    	         />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(5)} 
+	    	           value={this.state.boxes[5]}
+	    	         />
+	    	       <TableBlock 
+	    	          changeState={() => this.handleBoxClick(6)} 
+	    	          value={this.state.boxes[6]}
+	    	        />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(7)} 
+	    	           value={this.state.boxes[7]}
+	    	         />
+	    	        <TableBlock 
+	    	           changeState={() => this.handleBoxClick(8)} 
+	    	           value={this.state.boxes[8]}
+	    	         />
+		    	</GameBoard>
 		 		{this.gameStatus()}
-		    </div>
+		 		<button onClick={() => this.restartGame()}>
+		 			Restart
+		 		</button>
+		    </TableWrapper>
 		)
 	}
 }
