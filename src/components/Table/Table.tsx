@@ -5,7 +5,15 @@ import TableBlock from '../TableBlock/TableBlock';
 import {
 	TableWrapper,
 	GameBoard,
+	GameStatusWrapper,
+	GameStatus,
+	ResetButton,
 } from './TableStyles';
+
+import {
+	StyledO,
+	StyledX,
+} from '../../utils/constants';
 
 // utils
 import {
@@ -56,10 +64,10 @@ class Table extends Component<{}, TableState>  {
 	    }
 
 	    // Mark the box either as 'x' or 'o'
-	    boxes[index] = this.state.xPlayer ? 'x' : 'o'
+	    boxes[index] = this.state.xPlayer ? 'X' : 'O'
 
 	    // Add move to game history
-	    history.push(this.state.xPlayer ? 'x' : 'o')
+	    history.push(this.state.xPlayer ? 'X' : 'O')
 
 		// Update component state with new data
 		this.setState({
@@ -70,21 +78,24 @@ class Table extends Component<{}, TableState>  {
 	}
 
 	gameStatus() {
-		// Get winner (if there is any)
-		const winner = findWinner(this.state.boxes)
-
-		// Are all boxes checked?
-		const isFilled = allBoxesClicked(this.state.boxes)
-
+		const winner = findWinner(this.state.boxes);
+		
 	    if (winner) {
-	        // If winner exists, create status message
-	        return `The winner is: ${winner}!`
-	    } else if(!winner && isFilled) {
-	        // If game is drawn, create status message
-	        return 'Game drawn!'
+	        return (
+	        	<GameStatus>{`The winner is: ${winner}!`}</GameStatus>
+	        )
+	    } else if(!winner && allBoxesClicked(this.state.boxes)) {
+	        return (
+	        	<GameStatus>{'Game drawn!'}</GameStatus>
+	        )
 	    } else {
-	        // If there is no winner and game is not drawn, ask the next player to make a move
-	        return `It is ${(this.state.xPlayer ? 'x' : 'o')}'s turn.`
+	        return (
+	        	<GameStatus>
+	        	{this.state.xPlayer ? 
+        			<span><StyledX>X</StyledX>, you're up!</span> : 
+        			<span><StyledO>O</StyledO>, you're up!</span>}
+	        	</GameStatus>
+	        ) 
 	    }
 	}
 
@@ -137,10 +148,12 @@ class Table extends Component<{}, TableState>  {
 	    	           value={this.state.boxes[8]}
 	    	         />
 		    	</GameBoard>
-		 		{this.gameStatus()}
-		 		<button onClick={() => this.restartGame()}>
+		    	<GameStatusWrapper>
+		 			{this.gameStatus()}
+		 		</GameStatusWrapper>
+		 		<ResetButton onClick={() => this.restartGame()}>
 		 			Restart
-		 		</button>
+		 		</ResetButton>
 		    </TableWrapper>
 		)
 	}
